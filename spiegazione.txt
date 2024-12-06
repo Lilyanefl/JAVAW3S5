@@ -1,0 +1,23 @@
+Relazione della classe astratta CatalogItem e le sottoclassi: ereditarietà (Book, Magazine)
+catalogitem rappresenta un concetto generico per elementi di un catalogo, che possono essere
+libri o riviste in questo caso.
+
+Le sottoclassi Book e Magazine ereditano proprietà comuni e aggiungono attributi specifici in base a come sono 
+state ideate.
+
+Riguardo invece al DB, ho utilizzato l'annotazione @Inheritance(strategy = InheritanceType.JOINED)
+per fare in modo che le informazioni comuni sono rappresentate nella tabella comune catalogitem,
+mentre le proprietà specifiche vengono rappresentate in tabelle separate, in modo che l'utente effettuando
+ query sul database con una semplice join può prendere i dati che servono.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Loan e CatalogItem è una relazione ManyToOne poiché un prestito è associato ad un solo elemento del catalogo, ma ogni elemento può
+essere prestato piu' volte. La relazione ManyToOne in questo caso ci consente di collegare un prestito a un libro o a una rivista senza
+ dover distinguere manualmente tra le sottoclassi.
+In sostanza: ManyToOne specifica che un singolo prestito è collegato a un solo elemento, ma un elemento può avere piu' prestiti.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Loan e UserDB è anch'esso una relazione ManyToOne, poiché un prestito è effettuato da un singolo utente ma ogni utente può effettuare piu' prestiti.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Le relazioni Loan-CatalogItem e Loan-UserDB consentono di gestire i prestiti in modo relazionale, ogni prestito
+è legato a chi lo ha effettuato (user) e all'oggetto prestato (catalogitem) garantendo tracciabilità e riusabilità
+(in caso si voglia creare un altra entità, come ad esempio "Phone" si può associare anch'esso ad un elemento del catalogo sfruttando la stessa logica)
